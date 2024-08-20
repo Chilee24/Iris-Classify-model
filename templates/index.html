@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Classification with K-NN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Flower Classification with K-NN</h1>
+        <form action="/predict" method="post">
+            <label for="feature0">Feature 1:</label>
+            <input type="text" id="feature0" name="feature0" required><br>
+
+            <label for="feature1">Feature 2:</label>
+            <input type="text" id="feature1" name="feature1" required><br>
+
+            <label for="feature2">Feature 3:</label>
+            <input type="text" id="feature2" name="feature2" required><br>
+
+            <label for="feature3">Feature 4:</label>
+            <input type="text" id="feature3" name="feature3" required><br>
+
+            <label for="k">Number of Neighbors (k):</label>
+            <input type="number" id="k" name="k" min="1" required><br>
+
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction is not none %}
+            <h2>Predicted Class: {{ prediction }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>
