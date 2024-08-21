@@ -32,7 +32,7 @@ class KNN:
             predictions.append(y_pred)
         return torch.tensor(predictions)
 
-# Tải tập dữ liệu Iris
+
 iris = datasets.load_iris()
 x = iris.data
 y = iris.target
