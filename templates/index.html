@@ -3,34 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flower Classification with K-NN</title>
+    <title>Flower Classification and Prediction with Flask</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Flower Classification with K-NN</h1>
+        <h1>IRIS Flower Classification</h1>
         <form action="/predict" method="post">
-            <label for="feature0">Feature 1:</label>
-            <input type="text" id="feature0" name="feature0" required><br>
+            <label for="model">Select Model:</label>
+            <select id="model" name="model" onchange="toggleModelOptions()">
+                <option value="knn">K-Nearest Neighbors (K-NN)</option>
+                <option value="linear">Linear Regression</option>
+            </select><br>
 
-            <label for="feature1">Feature 2:</label>
-            <input type="text" id="feature1" name="feature1" required><br>
+            <div id="input-fields">
+                <label for="feature0">Feature 1:</label>
+                <input type="text" id="feature0" name="feature0" required><br>
 
-            <label for="feature2">Feature 3:</label>
-            <input type="text" id="feature2" name="feature2" required><br>
+                <label for="feature1">Feature 2:</label>
+                <input type="text" id="feature1" name="feature1" required><br>
 
-            <label for="feature3">Feature 4:</label>
-            <input type="text" id="feature3" name="feature3" required><br>
+                <label for="feature2">Feature 3:</label>
+                <input type="text" id="feature2" name="feature2" required><br>
 
-            <label for="k">Number of Neighbors (k):</label>
-            <input type="number" id="k" name="k" min="1" required><br>
+                <label for="feature3">Feature 4:</label>
+                <input type="text" id="feature3" name="feature3" required><br>
+            </div>
 
             <input type="submit" value="Predict">
         </form>
 
         {% if prediction is not none %}
-            <h2>Predicted Class: {{ prediction }}</h2>
+            <h2>Result: {{ prediction }}</h2>
         {% endif %}
     </div>
+
+    <script>
+        function toggleModelOptions() {
+            const model = document.getElementById('model').value;
+            const inputFields = document.getElementById('input-fields');
+            const linearMessage = document.getElementById('linear-message');
+
+            if (model === 'knn' || model === 'linear') {
+                inputFields.style.display = 'block';
+            }
+
+            if (model === 'linear') {
+                linearMessage.style.display = 'block';
+            } else {
+                linearMessage.style.display = 'none';
+            }
+        }
+
+        toggleModelOptions();
+    </script>
 </body>
 </html>
