@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flower Classification and Prediction with Flask</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
     <div class="container">
         <h1>IRIS Flower Classification</h1>
         <form action="/predict" method="post">
             <label for="model">Select Model:</label>
-            <select id="model" name="model" onchange="toggleModelOptions()">
+            <select id="model" name="model">
                 <option value="knn">K-Nearest Neighbors (K-NN)</option>
                 <option value="linear">Linear Regression</option>
+                <option value="bayes">Gaussian Naive Bayes</option>
             </select><br>
 
             <div id="input-fields">
@@ -33,29 +36,11 @@
             <input type="submit" value="Predict">
         </form>
 
-        {% if prediction is not none %}
+        {% if prediction and prediction_time  is not none %}
             <h2>Result: {{ prediction }}</h2>
+            <p>Prediction Time: {{ '%.2f'|format(prediction_time) }} ms</p>
         {% endif %}
     </div>
-
-    <script>
-        function toggleModelOptions() {
-            const model = document.getElementById('model').value;
-            const inputFields = document.getElementById('input-fields');
-            const linearMessage = document.getElementById('linear-message');
-
-            if (model === 'knn' || model === 'linear') {
-                inputFields.style.display = 'block';
-            }
-
-            if (model === 'linear') {
-                linearMessage.style.display = 'block';
-            } else {
-                linearMessage.style.display = 'none';
-            }
-        }
-
-        toggleModelOptions();
-    </script>
 </body>
+
 </html>
