@@ -7,9 +7,6 @@ import time
 
 app = flask.Flask(__name__)
 
-def eculid_distance(x, y):
-    return torch.sqrt(torch.sum((x-y)**2, dim=1))
-
 class Linear(nn.Module):
     def __init__(self, in_features, out_features):
         super(Linear, self).__init__()
@@ -17,6 +14,9 @@ class Linear(nn.Module):
 
     def forward(self, x):
         return self.lin(x)
+
+def eculid_distance(x, y):
+    return torch.sqrt(torch.sum((x-y)**2, dim=1))
 
 class KNN:
     def __init__(self, k):
@@ -39,11 +39,10 @@ class GaussianNaiveBayes:
         self.feature_stds = None
 
     def fit(self, X, y):
-        # Tính xác suất prior cho mỗi lớp
+        
         self.classes, class_counts = torch.unique(y, return_counts=True)
         self.class_probs = class_counts.float() / len(y)
 
-        # Tính mean và std của mỗi feature cho mỗi lớp
         self.feature_means = []
         self.feature_stds = []
         for c in self.classes:
